@@ -13,12 +13,14 @@ import {createStackNavigator, createAppContainer} from 'react-navigation';
 import LoginScreen from './src/screens/login'
 import HomeScreen from './src/screens/home'
 import AddCustomerScreen from './src/screens/addCustomer'
+import ViewCustomerScreen from './src/screens/viewCustomer'
 
 const RootStack = createStackNavigator(
   {
     Login: LoginScreen,
     Home: HomeScreen,
-    AddCustomer: AddCustomerScreen
+    AddCustomer: AddCustomerScreen,
+    ViewCustomer: ViewCustomerScreen
   },
   {
     initialRouteName: 'Login',

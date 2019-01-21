@@ -10,6 +10,11 @@ export default class Home extends Component {
     //Alert.alert('You tapped the Login!')
   }
 
+  _onPressViewCustomerButton=() => {
+    this.props.navigation.navigate('ViewCustomer');
+    //Alert.alert('You tapped the Login!')
+  }
+
   render() {
     return (
       <View style={styles.main}>
@@ -21,6 +26,17 @@ export default class Home extends Component {
               <Text
                   style={styles.buttonText}>
                   Add Customer
+              </Text>
+            </TouchableHighlight>
+
+        <TouchableHighlight
+                style = {styles.button}
+                underlayColor= "white"
+                onPress = {this._onPressViewCustomerButton}
+              >
+              <Text
+                  style={styles.buttonText}>
+                  View Customer
               </Text>
             </TouchableHighlight>
       </View>
