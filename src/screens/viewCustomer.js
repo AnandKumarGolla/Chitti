@@ -2,7 +2,7 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList} from 'react-native';
-import { List, ListItem } from 'react-native-elements'
+import { List, ListItem, SearchBar } from 'react-native-elements'
 import ItemComponent from '../components/CustomerComponent';
 
 import { db } from '../config/db';
@@ -39,20 +39,40 @@ export default class ViewCustomer extends Component {
             });
          });
     }
+
+    renderSeparator = () => {
+        return (
+          <View
+            style={{
+              height: 1,
+              width: "95%",
+              backgroundColor: "#CED0CE",
+              marginLeft: "5%"
+            }}
+          />
+        );
+      };
+
+      renderHeader = () => {
+        return <SearchBar placeholder="Type Here..." lightTheme round />;
+      };
     
     render() {
         return (
-            <List>
+            <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0}}>
                 <FlatList
                     data={this.state.items}
                     renderItem={({ item }) => (
                         <ListItem
-                        roundAvatar
                         title={item.name}
                         subtitle={item.address}
+                        containerStyle={{borderBottomWidth: 0, borderTopWidth: 0}}
                         />
                     )}
-                />
+                    keyExtractor={item => item.name}
+                    ItemSeparatorComponent={this.renderSeparator}
+                    ListHeaderComponent={this.renderHeader}
+                    />
             </List>
         )
     }
