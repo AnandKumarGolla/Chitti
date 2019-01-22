@@ -1,7 +1,7 @@
 // viewCustomer.js
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList} from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import ItemComponent from '../components/CustomerComponent';
 
@@ -23,9 +23,11 @@ export default class ViewCustomer extends Component {
         super(props)
         this.state = {
             loading: false,
-            items: []
-        }
-        
+            items: [],
+            error: null,
+        };
+
+        this.arrayholder = [];
     }
 
     componentDidMount() {
@@ -35,8 +37,10 @@ export default class ViewCustomer extends Component {
             let items = Object.values(data);
             this.setState({
                 loading: false,
-                items: items
+                items: items,
+                error: null,
             });
+            this.arrayholder = items;
          });
     }
 
@@ -53,11 +57,38 @@ export default class ViewCustomer extends Component {
         );
       };
 
+      searchFilterFunction = text => {
+        console.log(this.arrayholder);
+        const newData = this.arrayholder.filter(item => {
+          const itemData = item.name.toUpperCase();
+          const textData = text.toUpperCase();
+          return itemData.indexOf(textData) > -1;
+        });
+        this.setState({
+            items: newData,
+        });
+      };
+
       renderHeader = () => {
-        return <SearchBar placeholder="Type Here..." lightTheme round />;
+        return (
+          <SearchBar
+            placeholder="Search Customer name..."
+            lightTheme
+            round
+            onChangeText={text => this.searchFilterFunction(text)}
+            autoCorrect={false}
+          />
+        );
       };
     
     render() {
+        if (this.state.loading) {
+            return (
+              <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <ActivityIndicator />
+              </View>
+            );
+          }
         return (
             <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0}}>
                 <FlatList
