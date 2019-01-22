@@ -1,7 +1,8 @@
 // viewCustomer.js
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet} from 'react-native';
+import { View, Text, StyleSheet, FlatList} from 'react-native';
+import { List, ListItem } from 'react-native-elements'
 import ItemComponent from '../components/CustomerComponent';
 
 import { db } from '../config/db';
@@ -18,27 +19,41 @@ const styles = StyleSheet.create({
 
 export default class ViewCustomer extends Component {
 
-    state = {
-        items: []
+    constructor(props) {
+        super(props)
+        this.state = {
+            loading: false,
+            items: []
+        }
+        
     }
 
     componentDidMount() {
+        this.setState({ loading: true });
         itemsRef.on('value', (snapshot) => {
             let data = snapshot.val();
             let items = Object.values(data);
-            this.setState({items});
+            this.setState({
+                loading: false,
+                items: items
+            });
          });
     }
     
     render() {
         return (
-            <View style={styles.container}>
-                {
-                    this.state.items.length > 0
-                    ? <ItemComponent items={this.state.items} />
-                    : <Text>No items</Text>
-                }
-            </View>
+            <List>
+                <FlatList
+                    data={this.state.items}
+                    renderItem={({ item }) => (
+                        <ListItem
+                        roundAvatar
+                        title={item.name}
+                        subtitle={item.address}
+                        />
+                    )}
+                />
+            </List>
         )
     }
 }
