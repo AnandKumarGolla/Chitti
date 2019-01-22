@@ -34,11 +34,12 @@ export default class ViewCustomer extends Component {
         this.setState({ loading: true });
         itemsRef.on('value', (snapshot) => {
             let data = snapshot.val();
+            let error = snapshot.error
             let items = Object.values(data);
             this.setState({
                 loading: false,
                 items: items,
-                error: null,
+                error: error,
             });
             this.arrayholder = items;
          });
