@@ -15,6 +15,7 @@ import LoginScreen from './src/screens/login'
 import HomeScreen from './src/screens/home'
 import AddCustomerScreen from './src/screens/addCustomer'
 import ViewCustomerScreen from './src/screens/viewCustomer'
+import AddChitScreen from './src/screens/addChit'
 
 const RootStack = createStackNavigator(
   {
@@ -22,7 +23,8 @@ const RootStack = createStackNavigator(
     Login: LoginScreen,
     Home: HomeScreen,
     AddCustomer: AddCustomerScreen,
-    ViewCustomer: ViewCustomerScreen
+    ViewCustomer: ViewCustomerScreen,
+    AddChit: AddChitScreen
   },
   {
     initialRouteName: 'Lock',

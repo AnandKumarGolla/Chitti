@@ -15,6 +15,11 @@ export default class Home extends Component {
     //Alert.alert('You tapped the Login!')
   }
 
+  _onPressAddChitButton=() => {
+    this.props.navigation.navigate('AddChit');
+    //Alert.alert('You tapped the Login!')
+  }
+
   render() {
     return (
       <View style={styles.main}>
@@ -37,6 +42,17 @@ export default class Home extends Component {
               <Text
                   style={styles.buttonText}>
                   View Customer
+              </Text>
+            </TouchableHighlight>
+
+            <TouchableHighlight
+                style = {styles.button}
+                underlayColor= "white"
+                onPress = {this._onPressAddChitButton}
+              >
+              <Text
+                  style={styles.buttonText}>
+                  Add Chit
               </Text>
             </TouchableHighlight>
       </View>

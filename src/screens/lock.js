@@ -11,13 +11,9 @@ export default class Lock extends Component {
         status: 'normal',
         message: 'Please input your password.'
       }
-  
-    //   this.onStart = this.onStart.bind(this);
-    //   this.onEnd = this.onEnd.bind(this);
     }
 
     onStart = () => {
-        console.log('on Start')
         this.setState({
             status: 'normal',
             message: 'Please input your password.'
@@ -53,10 +49,7 @@ export default class Lock extends Component {
                 ref='pg'
                 status={this.state.status}
                 message={this.state.message}
-                onStart={() => 
-                    {console.log("print start")
-                 this.onStart()}
-                }
+                onStart={() => this.onStart()}
                 onEnd={(password) => this.onEnd(password)}
                 onReset={() => this.onReset()}
                 />
