@@ -36,6 +36,7 @@ export default class ViewCustomer extends Component {
             let data = snapshot.val();
             let error = snapshot.error
             let items = Object.values(data);
+            console.log(snapshot)
             this.setState({
                 loading: false,
                 items: items,
