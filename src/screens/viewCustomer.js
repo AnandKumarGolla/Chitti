@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import ItemComponent from '../components/CustomerComponent';
+import Swipeout from 'react-native-swipeout';
 
 import { db } from '../config/db';
 
@@ -84,6 +85,16 @@ export default class ViewCustomer extends Component {
       };
     
     render() {
+
+      var swipeoutBtns = [
+        {
+          text: 'Delete'
+        },
+        {
+          text: 'Call'
+        }
+      ]
+
         if (this.state.loading) {
             return (
               <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -96,11 +107,15 @@ export default class ViewCustomer extends Component {
                 <FlatList
                     data={this.state.items}
                     renderItem={({ item }) => (
+                      <Swipeout right={swipeoutBtns}>
+
                         <ListItem
                         title={item.name}
                         subtitle={item.address}
                         containerStyle={{borderBottomWidth: 0, borderTopWidth: 0}}
                         />
+                        </Swipeout>
+
                     )}
                     keyExtractor={item => item.name}
                     ItemSeparatorComponent={this.renderSeparator}
