@@ -12,7 +12,7 @@ import { View, StyleSheet, AppState, Modal } from 'react-native';
 import PasswordGesture from 'react-native-gesture-password'
 
 import LockScreen from './src/screens/lock'
-import LoginScreen from './src/screens/login'
+import ChitScreen from './src/screens/Chit'
 import AddCustomerScreen from './src/screens/addCustomer'
 import ViewCustomerScreen from './src/screens/viewCustomer'
 import AddChitScreen from './src/screens/addChit'
@@ -43,19 +43,19 @@ const CustomerStack = createStackNavigator(
 
 const ChitStack = createStackNavigator(
   {
-    // ViewCustomer: ViewCustomerScreen,
+    Chit: ChitScreen,
     AddChit: AddChitScreen,
   },
   {
-    initialRouteName: 'AddChit',
+    initialRouteName: 'Chit',
   }
 );
 
 const customerContainer = createAppContainer(CustomerStack);
 
 const TabNavigator = createBottomTabNavigator({
-  Home: { screen: ChitStack },
-  ViewCustomer: { screen: customerContainer },
+  Chits: { screen: ChitStack },
+  Customers: { screen: customerContainer },
 });
 
 const AppContainer = createAppContainer(TabNavigator);
