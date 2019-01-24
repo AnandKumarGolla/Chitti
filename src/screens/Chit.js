@@ -1,9 +1,8 @@
 // viewCustomer.js
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableHighlight, Button} from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements'
-import ItemComponent from '../components/CustomerComponent';
 import Swipeout from 'react-native-swipeout';
 
 import { db } from '../config/db';
@@ -15,6 +14,10 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       backgroundColor: '#B6A6BB',
+    },
+    button: {
+      height: 45,
+      width: 100
     }
   })
 
@@ -87,6 +90,22 @@ export default class Chits extends Component {
           />
         );
       };
+
+      static navigationOptions = ({navigation}) => {
+        return {
+          title: 'Add Comment',
+          headerRight: (
+            <Button
+              title='Post'
+              onPress={() => Chits.onPressAddButton() }
+            />
+          ),
+        };
+      };
+
+      static onPressAddButton() {
+        this.props.navigation.navigate('AddChit');
+      }
     
     render() {
 
