@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     }
   })
 
-export default class Customers extends Component {
+export default class ViewCustomer extends Component {
 
     constructor(props) {
         super(props)
@@ -37,10 +37,21 @@ export default class Customers extends Component {
 
         this.setState({ loading: true });
         itemsRef.on('value', (snapshot) => {
-            let data = snapshot.val();
+            // let data = snapshot.val();
             let error = snapshot.error
-            let items = Object.values(data);
-            console.log(snapshot)
+            // let items = Object.values(data);
+            // console.log(snapshot)
+
+            var items = [];
+            snapshot.forEach((child) => {
+              items.push({
+                name: child.val().name,
+                phoneNo: child.val().phoneNo,
+                address: child.val().address,
+                _key: child.key
+              });
+            });
+
             this.setState({
                 loading: false,
                 items: items,
@@ -136,7 +147,7 @@ export default class Customers extends Component {
                         </Swipeout>
 
                     )}
-                    keyExtractor={item => item.name}
+                    keyExtractor={item => item._key}
                     ItemSeparatorComponent={this.renderSeparator}
                     ListHeaderComponent={this.renderHeader}
                     />
