@@ -35,6 +35,9 @@ export default class Chits extends Component {
     }
 
     componentDidMount() {
+
+      this.props.navigation.setParams({ addButtonClicked: this._addButtonClicked });
+
         this.setState({ loading: true });
         itemsRef.on('value', (snapshot) => {
             let data = snapshot.val();
@@ -91,21 +94,21 @@ export default class Chits extends Component {
         );
       };
 
-      static navigationOptions = ({navigation}) => {
+      static navigationOptions = ({ navigation }) => {
         return {
-          title: 'Add Comment',
+          title: 'Chits',
           headerRight: (
             <Button
-              title='Post'
-              onPress={() => Chits.onPressAddButton() }
-            />
+              title='Add'
+              onPress={navigation.getParam('addButtonClicked')}
+              />
           ),
         };
       };
 
-      static onPressAddButton() {
+      _addButtonClicked = () => {
         this.props.navigation.navigate('AddChit');
-      }
+      };
     
     render() {
 

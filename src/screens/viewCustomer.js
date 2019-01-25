@@ -1,7 +1,7 @@
 // viewCustomer.js
 
 import React, { Component } from 'react';
-import { View, Text, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
+import { View, Text, StyleSheet, FlatList, ActivityIndicator, Button} from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import ItemComponent from '../components/CustomerComponent';
 import Swipeout from 'react-native-swipeout';
@@ -32,6 +32,9 @@ export default class ViewCustomer extends Component {
     }
 
     componentDidMount() {
+
+      this.props.navigation.setParams({ addButtonClicked: this._addButtonClicked });
+
         this.setState({ loading: true });
         itemsRef.on('value', (snapshot) => {
             let data = snapshot.val();
@@ -82,6 +85,22 @@ export default class ViewCustomer extends Component {
             autoCorrect={false}
           />
         );
+      };
+
+      static navigationOptions = ({ navigation }) => {
+        return {
+          title: 'Chits',
+          headerRight: (
+            <Button
+              title='Add'
+              onPress={navigation.getParam('addButtonClicked')}
+              />
+          ),
+        };
+      };
+
+      _addButtonClicked = () => {
+        this.props.navigation.navigate('AddCustomer');
       };
     
     render() {
