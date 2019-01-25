@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     }
   })
 
-export default class ViewCustomer extends Component {
+export default class Customers extends Component {
 
     constructor(props) {
         super(props)

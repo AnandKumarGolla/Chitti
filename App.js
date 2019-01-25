@@ -11,10 +11,9 @@ import {createStackNavigator, createAppContainer, createBottomTabNavigator} from
 import { View, StyleSheet, AppState, Modal } from 'react-native';
 import PasswordGesture from 'react-native-gesture-password'
 
-import LockScreen from './src/screens/lock'
-import ChitScreen from './src/screens/Chit'
+import ChitScreen from './src/screens/chits'
 import AddCustomerScreen from './src/screens/addCustomer'
-import ViewCustomerScreen from './src/screens/viewCustomer'
+import ViewCustomerScreen from './src/screens/customers'
 import AddChitScreen from './src/screens/addChit'
 
 // const RootStack = createStackNavigator(
