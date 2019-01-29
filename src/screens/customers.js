@@ -44,24 +44,21 @@ export default class ViewCustomer extends Component {
 
     fetchAllCustomersOfChit = (item) => {
 
-      let itemsRef = db.ref('/Chit/' + item._key + "/customers");
-
       this.setState({ loading: true });
-      itemsRef.on('value', (snapshot) => {
-          // let data = snapshot.val();
-          let error = snapshot.error
-          // let items = Object.values(data);
-          // console.log(snapshot)
 
-          var items = [];
-          snapshot.forEach((child) => {
-            items.push({
-              name: child.val().name,
-              phoneNo: child.val().phoneNo,
-              address: child.val().address,
-              _key: child.key
-            });
-          });
+      let itemsRef = db.ref('/Chit/' + item._key + "/customers"); 
+      var items = [];     
+      itemsRef.on('child_added', (snapshot) => {
+        let error = snapshot.error
+        let customerRef = db.ref('Customers/' + snapshot.key);
+        customerRef.once('value').then((customerSnapshot) => {
+          items.push({
+            name: customerSnapshot.val().name,
+            phoneNo: customerSnapshot.val().phoneNo,
+            address: customerSnapshot.val().address
+          })
+        })
+        console.log(items)
 
           this.setState({
               loading: false,
