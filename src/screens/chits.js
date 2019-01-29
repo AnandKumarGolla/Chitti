@@ -118,6 +118,11 @@ export default class Chits extends Component {
       _addButtonClicked = () => {
         this.props.navigation.navigate('AddChit');
       };
+
+      onPressListItem = (item) => {
+        console.log('Item clicked')
+        this.props.navigation.navigate('ViewCustomer', {item:item._key});
+      }
     
     render() {
 
@@ -148,6 +153,7 @@ export default class Chits extends Component {
                         title={item.name}
                         subtitle={item.duration}
                         containerStyle={{borderBottomWidth: 0, borderTopWidth: 0}}
+                        onPress={()=> { this.onPressListItem(item)}}
                         />
                         </Swipeout>
 

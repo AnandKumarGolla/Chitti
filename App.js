@@ -34,6 +34,8 @@ const CustomerStack = createStackNavigator(
   {
     ViewCustomer: ViewCustomerScreen,
     AddCustomer: AddCustomerScreen,
+    Chit: ChitScreen,
+    AddChit: AddChitScreen,
   },
   {
     initialRouteName: 'ViewCustomer',
@@ -44,6 +46,8 @@ const ChitStack = createStackNavigator(
   {
     Chit: ChitScreen,
     AddChit: AddChitScreen,
+    ViewCustomer: ViewCustomerScreen,
+    AddCustomer: AddCustomerScreen,
   },
   {
     initialRouteName: 'Chit',

@@ -35,6 +35,8 @@ export default class ViewCustomer extends Component {
 
       this.props.navigation.setParams({ addButtonClicked: this._addButtonClicked });
 
+      const item = this.props.navigation.getParam(item)
+      console.log(item)
         this.setState({ loading: true });
         itemsRef.on('value', (snapshot) => {
             // let data = snapshot.val();
@@ -100,7 +102,7 @@ export default class ViewCustomer extends Component {
 
       static navigationOptions = ({ navigation }) => {
         return {
-          title: 'Chits',
+          title: 'Customers',
           headerRight: (
             <Button
               title='Add'
