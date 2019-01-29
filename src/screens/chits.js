@@ -121,7 +121,7 @@ export default class Chits extends Component {
 
       onPressListItem = (item) => {
         console.log('Item clicked')
-        this.props.navigation.navigate('ViewCustomer', {item:item._key});
+        this.props.navigation.navigate('ViewCustomer', {item:item});
       }
     
     render() {

@@ -8,8 +8,6 @@ import Swipeout from 'react-native-swipeout';
 
 import { db } from '../config/db';
 
-let itemsRef = db.ref('/Customers');
-
 const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -35,32 +33,73 @@ export default class ViewCustomer extends Component {
 
       this.props.navigation.setParams({ addButtonClicked: this._addButtonClicked });
 
-      const item = this.props.navigation.getParam(item)
-      console.log(item)
-        this.setState({ loading: true });
-        itemsRef.on('value', (snapshot) => {
-            // let data = snapshot.val();
-            let error = snapshot.error
-            // let items = Object.values(data);
-            // console.log(snapshot)
+      // const item = this.props.navigation.state.params.item || ''
+      if (this.props.navigation.state.params) {
+      // if (typeof this.props.navigation.state.params.item !== undefined) {
+        this.fetchAllCustomersOfChit(this.props.navigation.state.params.item)
+      } else {
+        this.fetchAllCustomers()
+      }
+    }
 
-            var items = [];
-            snapshot.forEach((child) => {
-              items.push({
-                name: child.val().name,
-                phoneNo: child.val().phoneNo,
-                address: child.val().address,
-                _key: child.key
-              });
-            });
+    fetchAllCustomersOfChit = (item) => {
 
-            this.setState({
-                loading: false,
-                items: items,
-                error: error,
+      let itemsRef = db.ref('/Chit/' + item._key + "/customers");
+
+      this.setState({ loading: true });
+      itemsRef.on('value', (snapshot) => {
+          // let data = snapshot.val();
+          let error = snapshot.error
+          // let items = Object.values(data);
+          // console.log(snapshot)
+
+          var items = [];
+          snapshot.forEach((child) => {
+            items.push({
+              name: child.val().name,
+              phoneNo: child.val().phoneNo,
+              address: child.val().address,
+              _key: child.key
             });
-            this.arrayholder = items;
-         });
+          });
+
+          this.setState({
+              loading: false,
+              items: items,
+              error: error,
+          });
+          this.arrayholder = items;
+       });
+    }
+
+    fetchAllCustomers = () => {
+
+      let itemsRef = db.ref('/Customers');
+
+      this.setState({ loading: true });
+      itemsRef.on('value', (snapshot) => {
+          // let data = snapshot.val();
+          let error = snapshot.error
+          // let items = Object.values(data);
+          // console.log(snapshot)
+
+          var items = [];
+          snapshot.forEach((child) => {
+            items.push({
+              name: child.val().name,
+              phoneNo: child.val().phoneNo,
+              address: child.val().address,
+              _key: child.key
+            });
+          });
+
+          this.setState({
+              loading: false,
+              items: items,
+              error: error,
+          });
+          this.arrayholder = items;
+       });
     }
 
     renderSeparator = () => {
