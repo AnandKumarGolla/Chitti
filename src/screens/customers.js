@@ -46,7 +46,7 @@ export default class ViewCustomer extends Component {
 
       this.setState({ loading: true });
 
-      let itemsRef = db.ref('/Chit/' + item._key + "/customers"); 
+      let itemsRef = db.ref('/Chit/' + item.key + "/customers"); 
       var items = [];     
       itemsRef.on('child_added', (snapshot) => {
         let error = snapshot.error
@@ -86,7 +86,7 @@ export default class ViewCustomer extends Component {
               name: child.val().name,
               phoneNo: child.val().phoneNo,
               address: child.val().address,
-              _key: child.key
+              key: child.key
             });
           });
 
@@ -178,14 +178,16 @@ export default class ViewCustomer extends Component {
                       <Swipeout right={swipeoutBtns}>
 
                         <ListItem
+                        key={item.key}
                         title={item.name}
                         subtitle={item.address}
                         containerStyle={{borderBottomWidth: 0, borderTopWidth: 0}}
+                        buttonStyle = {backgroundColor = 'orange'}
                         />
                         </Swipeout>
 
                     )}
-                    keyExtractor={item => item._key}
+                    keyExtractor={item => item.key}
                     ItemSeparatorComponent={this.renderSeparator}
                     ListHeaderComponent={this.renderHeader}
                     />

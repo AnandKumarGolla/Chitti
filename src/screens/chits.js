@@ -49,7 +49,7 @@ export default class Chits extends Component {
                 name: child.val().name,
                 startDate: child.val().startDate,
                 duration: child.val().duration,
-                _key: child.key
+                key: child.key
               });
             });
 
@@ -150,6 +150,7 @@ export default class Chits extends Component {
                       <Swipeout right={swipeoutBtns}>
 
                         <ListItem
+                        key={item.key}
                         title={item.name}
                         subtitle={item.duration}
                         containerStyle={{borderBottomWidth: 0, borderTopWidth: 0}}
@@ -158,7 +159,7 @@ export default class Chits extends Component {
                         </Swipeout>
 
                     )}
-                    keyExtractor={item => item._key}
+                    keyExtractor={item => item.key}
                     ItemSeparatorComponent={this.renderSeparator}
                     ListHeaderComponent={this.renderHeader}
                     />
