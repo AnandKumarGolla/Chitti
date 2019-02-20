@@ -27,17 +27,18 @@ export default class ViewCustomer extends Component {
         };
 
         this.arrayholder = [];
+        this.screenFor = ""
     }
 
     componentDidMount() {
 
       this.props.navigation.setParams({ addButtonClicked: this._addButtonClicked });
 
-      // const item = this.props.navigation.state.params.item || ''
       if (this.props.navigation.state.params) {
-      // if (typeof this.props.navigation.state.params.item !== undefined) {
+        this.screenFor = "CustomersOfChit"
         this.fetchAllCustomersOfChit(this.props.navigation.state.params.item)
       } else {
+        this.screenFor = "AllCustomers"
         this.fetchAllCustomers()
       }
     }
@@ -149,7 +150,11 @@ export default class ViewCustomer extends Component {
       };
 
       _addButtonClicked = () => {
-        this.props.navigation.navigate('AddCustomer');
+        if (this.screenFor == "CustomersOfChit") {
+          this.props.navigation.navigate('AddCustToChit', {item: this.props.navigation.state.params.item});
+        } else {
+          this.props.navigation.navigate('AddCustomer');
+        }
       };
     
     render() {

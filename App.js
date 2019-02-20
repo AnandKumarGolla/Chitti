@@ -15,6 +15,7 @@ import ChitScreen from './src/screens/chits'
 import AddCustomerScreen from './src/screens/addCustomer'
 import ViewCustomerScreen from './src/screens/customers'
 import AddChitScreen from './src/screens/addChit'
+import AddCustomerToChit from './src/screens/addCustomerToChit'
 
 // const RootStack = createStackNavigator(
 //   {
@@ -36,6 +37,7 @@ const CustomerStack = createStackNavigator(
     AddCustomer: AddCustomerScreen,
     Chit: ChitScreen,
     AddChit: AddChitScreen,
+    AddCustToChit: AddCustomerToChit
   },
   {
     initialRouteName: 'ViewCustomer',
