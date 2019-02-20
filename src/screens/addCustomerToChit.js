@@ -36,7 +36,7 @@ export default class AddCustomerToChit extends Component {
 
     componentDidMount() {
 
-        this.props.navigation.setParams({ addButtonClicked: this._addButtonClicked });
+        this.props.navigation.setParams({ saveButtonClicked: this._saveClicked });
 
         this.fetchAllCustomersOfChit(this.props.navigation.state.params.item)
         this.fetchAllCustomers()
@@ -70,14 +70,15 @@ export default class AddCustomerToChit extends Component {
             let error = snapshot.error
             var items = [];
             snapshot.forEach((child) => {
-                // if (!this.customersOfChit.includes(child.key)) {
+                if (!this.customersOfChit.includes(child.key)) {
                     items.push({
                         name: child.val().name,
                         phoneNo: child.val().phoneNo,
                         address: child.val().address,
-                        key: child.key
+                        key: child.key,
+                        isSelected: false
                     });
-                // }
+                }
             });
 
             this.setState({
@@ -132,19 +133,26 @@ export default class AddCustomerToChit extends Component {
             headerRight: (
                 <Button
                     title='Save'
-                    onPress={navigation.getParam('addButtonClicked')}
+                    onPress={navigation.getParam('saveButtonClicked')}
                 />
             ),
         };
     };
 
-    _addButtonClicked = () => {
-        if (this.screenFor == "CustomersOfChit") {
-            this.props.navigation.navigate('ViewCustomer');
-        } else {
-            this.props.navigation.navigate('AddCustomer');
-        }
+    _saveClicked = () => {
+
     };
+
+    onPressListItem = (item) => {
+        item.isSelected = !item.isSelected
+        var itemIndex = this.state.items.indexOf(item)
+        var allItems = this.state.items
+        allItems[itemIndex] = item
+
+        this.setState({
+            items: allItems,
+        });
+    }
 
     render() {
 
@@ -164,13 +172,16 @@ export default class AddCustomerToChit extends Component {
                 </View>
             );
         }
+
+        console.log("rendering data")
+        console.log(this.state.items)
         return (
             <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
                 <FlatList
+                    legacyImplementation = {true}
                     data={this.state.items}
                     renderItem={({ item }) => (
                         <Swipeout right={swipeoutBtns}>
-
                             <ListItem
                                 key={item.key}
                                 title={item.name}
@@ -178,10 +189,11 @@ export default class AddCustomerToChit extends Component {
                                 containerStyle={{ borderBottomWidth: 0, borderTopWidth: 0 }}
                                 buttonStyle={backgroundColor = 'orange'}
                                 rightIcon={
-                                    this.customersOfChit.includes(item.key) ?
+                                    item.isSelected ?
                                         <Image source={require('../resources/check.png')} style={styles.checkImage} />
                                         : <Image />
                                 }
+                                onPress={() => { this.onPressListItem(item) }}
                             />
                         </Swipeout>
 
