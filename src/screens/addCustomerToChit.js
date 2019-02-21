@@ -5,6 +5,9 @@ import { View, Image, StyleSheet, FlatList, ActivityIndicator, Button } from 're
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
 
+import { addCustomerToChit } from '../services/chitService';
+
+
 import { db } from '../config/db';
 
 const styles = StyleSheet.create({
@@ -32,12 +35,13 @@ export default class AddCustomerToChit extends Component {
         this.customersOfChit = [];
         this.arrayholder = [];
         this.screenFor = ""
+        this.chitID = ""
     }
 
     componentDidMount() {
 
         this.props.navigation.setParams({ saveButtonClicked: this._saveClicked });
-
+        this.chitID = this.props.navigation.state.params.item
         this.fetchAllCustomersOfChit(this.props.navigation.state.params.item)
         this.fetchAllCustomers()
     }
@@ -140,7 +144,15 @@ export default class AddCustomerToChit extends Component {
     };
 
     _saveClicked = () => {
+        var data = this.state.items.filter(function(item){
+            return item.isSelected == true;
+         }).map(function({key}){
+             return {key};
+         });
 
+         data.map((item, key) => {
+            addCustomerToChit(this.props.navigation.state.params.item.key, item.key)
+         })
     };
 
     onPressListItem = (item) => {
@@ -173,8 +185,6 @@ export default class AddCustomerToChit extends Component {
             );
         }
 
-        console.log("rendering data")
-        console.log(this.state.items)
         return (
             <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
                 <FlatList

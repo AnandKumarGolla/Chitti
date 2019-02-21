@@ -5,6 +5,7 @@ import { View, Text, StyleSheet, FlatList, ActivityIndicator, Button } from 'rea
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import ItemComponent from '../components/CustomerComponent';
 import Swipeout from 'react-native-swipeout';
+import {removeCustomerFromChit} from '../services/chitService'
 
 import { db } from '../config/db';
 
@@ -161,7 +162,7 @@ export default class ViewCustomer extends Component {
     if (this.screenFor = "AllCustomers") {
       db.ref('/Customers').child(item.key).remove();
     } else {
-
+      removeCustomerFromChit(this.props.navigation.state.params.item.key, item.key)
     }
   }
 
