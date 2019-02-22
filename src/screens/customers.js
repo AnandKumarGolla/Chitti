@@ -158,11 +158,20 @@ export default class ViewCustomer extends Component {
     }
   };
 
-  removeCustomerFromChit = (item) => {
-    if (this.screenFor = "AllCustomers") {
+  removeCustomer = (item) => {
+    if (this.screenFor == "AllCustomers") {
       db.ref('/Customers').child(item.key).remove();
     } else {
       removeCustomerFromChit(this.props.navigation.state.params.item.key, item.key)
+
+      var items = this.state.items
+      var index = items.indexOf(item);
+
+      items.splice(index, 1)
+      this.setState({
+        items: items
+      })
+      this.arrayholder.pop(item)
     }
   }
 
@@ -172,7 +181,7 @@ export default class ViewCustomer extends Component {
         text: 'Delete',
         backgroundColor: 'red',
         onPress: () => {
-          this.removeCustomerFromChit(rowData)
+          this.removeCustomer(rowData)
         }
       },
       {
@@ -195,19 +204,6 @@ export default class ViewCustomer extends Component {
   }
 
   render() {
-
-    var swipeoutBtns = [
-      {
-        text: 'Delete',
-        backgroundColor: 'red',
-        onPress: () => {
-          console.log("Delete")
-        }
-      },
-      {
-        text: 'Call'
-      }
-    ]
 
     if (this.state.loading) {
       return (

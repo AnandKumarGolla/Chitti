@@ -4,7 +4,6 @@ import { db } from '../config/db';
 
 Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
 
-const chit = "Chit"
 const customers = "customers"
 
 export const addChit =  (name, date, duration) => {

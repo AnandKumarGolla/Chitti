@@ -6,6 +6,7 @@ import { List, ListItem, SearchBar } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
 
 import { addCustomerToChit } from '../services/chitService';
+import { addChitToCustomer} from '../services/customerService'
 
 
 import { db } from '../config/db';
@@ -133,7 +134,7 @@ export default class AddCustomerToChit extends Component {
 
     static navigationOptions = ({ navigation }) => {
         return {
-            title: 'Customers',
+            title: 'Add Customers To Chit',
             headerRight: (
                 <Button
                     title='Save'
@@ -151,7 +152,9 @@ export default class AddCustomerToChit extends Component {
          });
 
          data.map((item, key) => {
+             //ToDo: Handle roll back if failed
             addCustomerToChit(this.props.navigation.state.params.item.key, item.key)
+            addChitToCustomer(this.props.navigation.state.params.item.key, item.key)
          })
     };
 
