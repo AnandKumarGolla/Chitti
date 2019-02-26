@@ -168,7 +168,7 @@ export default class ViewCustomer extends Component {
 
       items.splice(index, 1)
       this.setState({
-        items: items
+        customerList: items
       })
       this.arrayholder.pop(item)
     }
