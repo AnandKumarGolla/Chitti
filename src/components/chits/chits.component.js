@@ -1,11 +1,11 @@
-// viewCustomer.js
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableHighlight, Button} from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
+import {updateFilteredChitList, updateAllChitList} from './chits.actions'
 
-import { db } from '../config/db';
+import { db } from '../../config/db';
 
 let itemsRef = db.ref('/Chit');
 
@@ -21,17 +21,14 @@ const styles = StyleSheet.create({
     }
   })
 
-export default class Chits extends Component {
+  export default class Chits extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
             loading: false,
-            items: [],
             error: null,
         };
-
-        this.arrayholder = [];
     }
 
     componentDidMount() {
@@ -40,9 +37,7 @@ export default class Chits extends Component {
 
         this.setState({ loading: true });
         itemsRef.on('value', (snapshot) => {
-            // let data = snapshot.val();
             let error = snapshot.error
-            // let items = Object.values(data);
             var items = [];
             snapshot.forEach((child) => {
               items.push({
@@ -53,12 +48,12 @@ export default class Chits extends Component {
               });
             });
 
+            this.props.updateFilteredChitList(items)
+            this.props.updateAllChitList(items)
             this.setState({
                 loading: false,
-                items: items,
                 error: error,
             });
-            this.arrayholder = items;
          });
     }
 
@@ -79,25 +74,13 @@ export default class Chits extends Component {
         );
       };
 
-      searchFilterFunction = text => {
-        console.log(this.arrayholder);
-        const newData = this.arrayholder.filter(item => {
-          const itemData = item.name.toUpperCase();
-          const textData = text.toUpperCase();
-          return itemData.indexOf(textData) > -1;
-        });
-        this.setState({
-            items: newData,
-        });
-      };
-
       renderHeader = () => {
         return (
           <SearchBar
             placeholder="Search Chit name..."
             lightTheme
             round
-            onChangeText={text => this.searchFilterFunction(text)}
+            onChangeText={text => this.props.searchFilterFunction(text, this.props.allChitList)}
             autoCorrect={false}
           />
         );
@@ -145,7 +128,7 @@ export default class Chits extends Component {
         return (
             <List containerStyle={{borderTopWidth: 0, borderBottomWidth: 0}}>
                 <FlatList
-                    data={this.state.items}
+                    data={this.props.filteredChitList}
                     renderItem={({ item }) => (
                       <Swipeout right={swipeoutBtns}>
 

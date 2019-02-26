@@ -10,8 +10,10 @@ import React, {Component} from 'react';
 import {createStackNavigator, createAppContainer, createBottomTabNavigator} from 'react-navigation';
 import { View, StyleSheet, AppState, Modal } from 'react-native';
 import PasswordGesture from 'react-native-gesture-password'
+import {Provider} from 'react-redux'
+import store from './src/redux/store'
 
-import ChitScreen from './src/screens/chits'
+import ChitScreen from './src/components/chits'
 import AddCustomerScreen from './src/screens/addCustomer'
 import ViewCustomerScreen from './src/screens/customers'
 import AddChitScreen from './src/screens/addChit'
@@ -118,6 +120,8 @@ export default class App extends Component {
 
   render() {
     return (
+      <Provider store={store}>
+      
       <View style={styles.main}>
       <Modal
           animationType="slide"
@@ -142,6 +146,7 @@ export default class App extends Component {
 
         <AppContainer />
       </View>
+      </Provider>
     )
     // return <AppContainer />;
   }

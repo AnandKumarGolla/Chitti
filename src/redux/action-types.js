@@ -1,0 +1,6 @@
+export default actionTypes = {
+    UPDATE_FILTERED_CHIT_LIST : 'UPDATE_FILTERED_CHIT_LIST',
+    UPDATE_ALL_CHIT_LIST : 'UPDATE_ALL_CHIT_LIST',
+
+}
+
