@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, TouchableHighlight, Button } from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
-import { updateFilteredChitList, updateAllChitList } from './chits.actions'
+import { updateAllChitList } from './chits.actions'
 
 import { db } from '../../config/db';
 
@@ -27,6 +27,7 @@ export default class Chits extends Component {
     super(props)
     this.state = {
       loading: false,
+      chitList: [],
       error: null,
     };
   }
@@ -48,10 +49,10 @@ export default class Chits extends Component {
         });
       });
 
-      this.props.updateFilteredChitList(items)
       this.props.updateAllChitList(items)
       this.setState({
         loading: false,
+        chitList: items,
         error: error,
       });
     });
@@ -74,13 +75,24 @@ export default class Chits extends Component {
     );
   };
 
+  searchFilterFunction = text => {
+    const newData = this.props.allChitList.filter(item => {
+      const itemData = item.name.toUpperCase();
+      const textData = text.toUpperCase();
+      return itemData.indexOf(textData) > -1;
+    });
+    this.setState({
+      chitList: newData
+    })
+  };
+
   renderHeader = () => {
     return (
       <SearchBar
         placeholder="Search Chit name..."
         lightTheme
         round
-        onChangeText={text => this.props.searchFilterFunction(text, this.props.allChitList)}
+        onChangeText={text => this.searchFilterFunction(text)}
         autoCorrect={false}
       />
     );
@@ -161,7 +173,7 @@ export default class Chits extends Component {
     return (
       <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
         <FlatList
-          data={this.props.filteredChitList}
+          data={this.state.chitList}
           renderItem={({ item }) => (this.renderRow(item))}
           keyExtractor={item => item.key}
           ItemSeparatorComponent={this.renderSeparator}

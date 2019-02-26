@@ -15,7 +15,7 @@ import store from './src/redux/store'
 
 import ChitScreen from './src/components/chits'
 import AddCustomerScreen from './src/screens/addCustomer'
-import ViewCustomerScreen from './src/screens/customers'
+import CustomerScreen from './src/components/customers'
 import AddChitScreen from './src/screens/addChit'
 import AddCustomerToChit from './src/screens/addCustomerToChit'
 
@@ -35,7 +35,7 @@ import AddCustomerToChit from './src/screens/addCustomerToChit'
 
 const CustomerStack = createStackNavigator(
   {
-    ViewCustomer: ViewCustomerScreen,
+    ViewCustomer: CustomerScreen,
     AddCustomer: AddCustomerScreen,
     Chit: ChitScreen,
     AddChit: AddChitScreen
@@ -49,7 +49,7 @@ const ChitStack = createStackNavigator(
   {
     Chit: ChitScreen,
     AddChit: AddChitScreen,
-    ViewCustomer: ViewCustomerScreen,
+    ViewCustomer: CustomerScreen,
     AddCustomer: AddCustomerScreen,
     AddCustToChit: AddCustomerToChit
   },
