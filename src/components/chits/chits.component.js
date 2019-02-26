@@ -58,6 +58,10 @@ export default class Chits extends Component {
     });
   }
 
+  componentWillUnmount() {
+    itemsRef.off('value')
+  }
+
   configureScene() {
     return ExNavigator.SceneConfigs.FloatFromRight;
   }

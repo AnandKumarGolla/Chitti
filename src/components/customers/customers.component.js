@@ -30,7 +30,9 @@ export default class ViewCustomer extends Component {
 
     this.screenFor = ""
     this.arrayholder = []
-
+    this.addCustomerRef = null
+    this.removeCustomerRef = null
+    this.itemsRef = null
   }
 
   componentDidMount() {
@@ -46,15 +48,27 @@ export default class ViewCustomer extends Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.screenFor = "CustomersOfChit") {
+      this.itemsRef.off('child_added');
+      this.itemsRef.off('child_removed');
+    } else {
+      this.itemsRef.off('value')
+    }
+  }
+
+
   fetchAllCustomersOfChit = (item) => {
 
     this.setState({ loading: true });
 
-    let itemsRef = db.ref('/Chit/' + item.key + "/customers");
+    this.itemsRef = db.ref('/Chit/' + item.key + "/customers");
     var items = [];
-    itemsRef.on('child_added', (snapshot) => {
+    this.itemsRef.on('child_added', (snapshot) => {
+      console.log("customer added to chit")
       let error = snapshot.error
       let customerRef = db.ref('Customers/' + snapshot.key);
+      // items = this.arrayholder
       customerRef.once('value').then((customerSnapshot) => {
         items.push({
           name: customerSnapshot.val().name,
@@ -62,23 +76,38 @@ export default class ViewCustomer extends Component {
           address: customerSnapshot.val().address,
           key: customerSnapshot.key
         })
+        
       })
+      console.log(items)
+        this.setState({
+          loading: false,
+          customerList: items,
+          error: error,
+        });
+        this.arrayholder = items;
+    });
 
+    this.itemsRef.on('child_removed', (snapshot) => {
+      let error = snapshot.error
+
+      let filteredCustomers = this.arrayholder.filter(item => {
+        return item.key != snapshot.key;
+      })
       this.setState({
         loading: false,
-        customerList: items,
+        customerList: filteredCustomers,
         error: error,
       });
-      this.arrayholder = items;
-    });
+      this.arrayholder = filteredCustomers;
+      })
   }
 
   fetchAllCustomers = () => {
 
-    let itemsRef = db.ref('/Customers');
+    this.itemsRef = db.ref('/Customers');
 
     this.setState({ loading: true });
-    itemsRef.on('value', (snapshot) => {
+    this.itemsRef.on('value', (snapshot) => {
       let error = snapshot.error
 
       var items = [];
@@ -214,6 +243,7 @@ export default class ViewCustomer extends Component {
     return (
       <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
         <FlatList
+          // legacyImplementation = {true}
           data={this.state.customerList}
           renderItem={({ item }) => (this.renderRow(item))} 
           keyExtractor={item => item.key}
