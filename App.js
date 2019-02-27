@@ -17,7 +17,7 @@ import ChitScreen from './src/components/chits'
 import AddCustomerScreen from './src/components/addCustomer'
 import CustomerScreen from './src/components/customers'
 import AddChitScreen from './src/components/addChit'
-import AddCustomerToChit from './src/screens/addCustomerToChit'
+import AddCustomerToChit from './src/components/addCustomerToChit'
 
 // const RootStack = createStackNavigator(
 //   {

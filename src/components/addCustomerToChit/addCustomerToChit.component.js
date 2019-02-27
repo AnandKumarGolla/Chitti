@@ -5,11 +5,11 @@ import { View, Image, StyleSheet, FlatList, ActivityIndicator, Button } from 're
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
 
-import { addCustomerToChit } from '../services/chitService';
-import { addChitToCustomer} from '../services/customerService'
+import { addCustomerToChit } from '../../services/chitService';
+import { addChitToCustomer} from '../../services/customerService'
 
 
-import { db } from '../config/db';
+import { db } from '../../config/db';
 
 const styles = StyleSheet.create({
     container: {
@@ -203,7 +203,7 @@ export default class AddCustomerToChit extends Component {
                                 buttonStyle={backgroundColor = 'orange'}
                                 rightIcon={
                                     item.isSelected ?
-                                        <Image source={require('../resources/check.png')} style={styles.checkImage} />
+                                        <Image source={require('../../resources/check.png')} style={styles.checkImage} />
                                         : <Image />
                                 }
                                 onPress={() => { this.onPressListItem(item) }}
