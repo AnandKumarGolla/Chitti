@@ -10,7 +10,7 @@ import {
   AlertIOS,
   ScrollView
 } from 'react-native';
-import { addCustomer } from '../services/customerService';
+import { addCustomer } from '../../services/customerService';
 
 
 export default class AddCustomer extends Component {

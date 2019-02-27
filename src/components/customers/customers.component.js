@@ -76,15 +76,14 @@ export default class ViewCustomer extends Component {
           address: customerSnapshot.val().address,
           key: customerSnapshot.key
         })
-        
       })
       console.log(items)
-        this.setState({
-          loading: false,
-          customerList: items,
-          error: error,
-        });
-        this.arrayholder = items;
+      this.setState({
+        loading: false,
+        customerList: items,
+        error: error,
+      });
+      this.arrayholder = items;
     });
 
     this.itemsRef.on('child_removed', (snapshot) => {
@@ -213,7 +212,9 @@ export default class ViewCustomer extends Component {
         }
       },
       {
-        text: 'Call'
+        text: 'Call',
+        backgroundColor: 'blue',
+
       }
     ]
 
@@ -243,8 +244,10 @@ export default class ViewCustomer extends Component {
     return (
       <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
         <FlatList
+          enableEmptySections = {true}
           // legacyImplementation = {true}
           data={this.state.customerList}
+          extraData={this.state.customerList}
           renderItem={({ item }) => (this.renderRow(item))} 
           keyExtractor={item => item.key}
           ItemSeparatorComponent={this.renderSeparator}

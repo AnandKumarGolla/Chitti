@@ -14,9 +14,9 @@ import {Provider} from 'react-redux'
 import store from './src/redux/store'
 
 import ChitScreen from './src/components/chits'
-import AddCustomerScreen from './src/screens/addCustomer'
+import AddCustomerScreen from './src/components/addCustomer'
 import CustomerScreen from './src/components/customers'
-import AddChitScreen from './src/screens/addChit'
+import AddChitScreen from './src/components/addChit'
 import AddCustomerToChit from './src/screens/addCustomerToChit'
 
 // const RootStack = createStackNavigator(

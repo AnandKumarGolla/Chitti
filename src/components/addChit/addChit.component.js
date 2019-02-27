@@ -11,7 +11,7 @@ import {
   ScrollView,
   DatePickerIOS
 } from 'react-native';
-import { addChit } from '../services/chitService';
+import { addChit } from '../../services/chitService';
 
 
 export default class AddChit extends Component {
