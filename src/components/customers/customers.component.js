@@ -2,9 +2,10 @@
 
 import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, Button } from 'react-native';
-import { List, ListItem, SearchBar } from 'react-native-elements'
+import { List, ListItem, SearchBar, colors } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
 import { removeCustomerFromChit } from '../../services/chitService'
+import { removeChitFromCustomer} from '../../services/customerService'
 import { updateAllCustomerList } from './customers.actions'
 
 
@@ -60,24 +61,20 @@ export default class ViewCustomer extends Component {
 
   fetchAllCustomersOfChit = (item) => {
 
-    this.setState({ loading: true });
-
     this.itemsRef = db.ref('/Chit/' + item.key + "/customers");
     var items = [];
-    this.itemsRef.on('child_added', (snapshot) => {
-      console.log("customer added to chit")
+    this.itemsRef.on('child_added', async (snapshot) => {
+      this.setState({ loading: true });
       let error = snapshot.error
+
       let customerRef = db.ref('Customers/' + snapshot.key);
-      // items = this.arrayholder
-      customerRef.once('value').then((customerSnapshot) => {
+      let customerSnapshot = await customerRef.once('value')
         items.push({
           name: customerSnapshot.val().name,
           phoneNo: customerSnapshot.val().phoneNo,
           address: customerSnapshot.val().address,
           key: customerSnapshot.key
         })
-      })
-      console.log(items)
       this.setState({
         loading: false,
         customerList: items,
@@ -165,6 +162,14 @@ export default class ViewCustomer extends Component {
     );
   };
 
+  renderNoRecords = () => {
+    return (
+      <Text style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        No Records Found
+      </Text>
+    );
+  };
+
   static navigationOptions = ({ navigation }) => {
     return {
       title: 'Customers',
@@ -189,16 +194,9 @@ export default class ViewCustomer extends Component {
     if (this.screenFor == "AllCustomers") {
       db.ref('/Customers').child(item.key).remove();
     } else {
+      // ToDo: Handle transactions
       removeCustomerFromChit(this.props.navigation.state.params.item.key, item.key)
-
-      var items = this.state.customerList
-      var index = items.indexOf(item);
-
-      items.splice(index, 1)
-      this.setState({
-        customerList: items
-      })
-      this.arrayholder.pop(item)
+      removeChitFromCustomer(this.props.navigation.state.params.item.key, item.key)
     }
   }
 
@@ -241,13 +239,13 @@ export default class ViewCustomer extends Component {
         </View>
       );
     }
+    console.log(this.state.customerList)
     return (
       // <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
       <FlatList
-        enableEmptySections={true}
+        ListEmptyComponent={this.renderNoRecords}
         // legacyImplementation = {true}
         data={this.state.customerList}
-        extraData={this.state.customerList}
         renderItem={({ item }) => (this.renderRow(item))}
         keyExtractor={item => item.key}
         ItemSeparatorComponent={this.renderSeparator}
