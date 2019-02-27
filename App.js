@@ -6,11 +6,11 @@
  * @flow
  */
 
-import React, {Component} from 'react';
-import {createStackNavigator, createAppContainer, createBottomTabNavigator} from 'react-navigation';
+import React, { Component } from 'react';
+import { createStackNavigator, createAppContainer, createBottomTabNavigator } from 'react-navigation';
 import { View, StyleSheet, AppState, Modal } from 'react-native';
 import PasswordGesture from 'react-native-gesture-password'
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 import store from './src/redux/store'
 
 import ChitScreen from './src/components/chits'
@@ -75,7 +75,7 @@ export default class App extends Component {
   };
 
   setModalVisible(visible) {
-    this.setState({modalVisible: visible});
+    this.setState({ modalVisible: visible });
   }
 
   componentDidMount() {
@@ -90,62 +90,62 @@ export default class App extends Component {
 
   onStart = () => {
     this.setState({
-        status: 'normal',
-        message: 'Please input your password.'
+      status: 'normal',
+      message: 'Please input your password.'
     });
   }
 
   onEnd = (password) => {
-      if (password == '123') {
-        this.setState({
-            status: 'right',
-            message: 'Password is right, success.'
-        });
-        this.setModalVisible(false);
+    if (password == '123') {
+      this.setState({
+        status: 'right',
+        message: 'Password is right, success.'
+      });
+      this.setModalVisible(false);
 
-      } else {
-        this.setState({
-            status: 'wrong',
-            message: 'Password is wrong, try again.'
-        });
-      }
+    } else {
+      this.setState({
+        status: 'wrong',
+        message: 'Password is wrong, try again.'
+      });
+    }
   }
 
   onReset = () => {
     this.setState({
-        status: 'normal',
-        message: 'Please input your password.'
+      status: 'normal',
+      message: 'Please input your password.'
     });
   }
 
   render() {
     return (
       <Provider store={store}>
-      
-      <View style={styles.main}>
-      <Modal
-          animationType="slide"
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {
-            Alert.alert('Modal has been closed.');
-          }}>
-          <View style={{marginTop: 22}}>
-            <View>
-            <PasswordGesture
-                ref='pg'
-                status={this.state.status}
-                message={this.state.message}
-                onStart={() => this.onStart()}
-                onEnd={(password) => this.onEnd(password)}
-                onReset={() => this.onReset()}
-                />
-            </View>
-          </View>
-        </Modal>
 
-        <AppContainer />
-      </View>
+        <View style={styles.main}>
+          <Modal
+            animationType="slide"
+            transparent={false}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal has been closed.');
+            }}>
+            <View style={{ marginTop: 22 }}>
+              <View>
+                <PasswordGesture
+                  ref='pg'
+                  status={this.state.status}
+                  message={this.state.message}
+                  onStart={() => this.onStart()}
+                  onEnd={(password) => this.onEnd(password)}
+                  onReset={() => this.onReset()}
+                />
+              </View>
+            </View>
+          </Modal>
+
+          <AppContainer />
+        </View>
       </Provider>
     )
     // return <AppContainer />;
@@ -153,9 +153,9 @@ export default class App extends Component {
 }
 
 const styles = StyleSheet.create({
-main: {
-  flex: 1,
-  padding: 0,
-  backgroundColor: '#2a8ab7'
-}
+  main: {
+    flex: 1,
+    padding: 0,
+    backgroundColor: '#2a8ab7'
+  }
 });

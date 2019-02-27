@@ -15,87 +15,87 @@ import { addCustomer } from '../../services/customerService';
 
 export default class AddCustomer extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        name: '',
-        phoneNo: '',
-        address: ''
-      }
-      this.handleNameChange = this.handleNameChange.bind(this);
-      this.handlePhoneNoChange = this.handlePhoneNoChange.bind(this);
-      this.handleAddressChange = this.handleAddressChange.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
+    super(props);
+    this.state = {
+      name: '',
+      phoneNo: '',
+      address: ''
     }
-    handleNameChange(e) {
-      this.setState({
-        name: e.nativeEvent.text
-      });
-    }
-    handlePhoneNoChange(e) {
-        this.setState({
-            phoneNo: e.nativeEvent.text
-        });
-      }
-    handleAddressChange(e) {
-        this.setState({
-            address: e.nativeEvent.text
-        });
-      }
-    handleSubmit() {
-        addCustomer(this.state.name, this.state.phoneNo, this.state.address);
-      AlertIOS.alert(
-        'Customer saved successfully'
-       );
-    }
+    this.handleNameChange = this.handleNameChange.bind(this);
+    this.handlePhoneNoChange = this.handlePhoneNoChange.bind(this);
+    this.handleAddressChange = this.handleAddressChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleNameChange(e) {
+    this.setState({
+      name: e.nativeEvent.text
+    });
+  }
+  handlePhoneNoChange(e) {
+    this.setState({
+      phoneNo: e.nativeEvent.text
+    });
+  }
+  handleAddressChange(e) {
+    this.setState({
+      address: e.nativeEvent.text
+    });
+  }
+  handleSubmit() {
+    addCustomer(this.state.name, this.state.phoneNo, this.state.address);
+    AlertIOS.alert(
+      'Customer saved successfully'
+    );
+  }
   render() {
     return (
-        <ScrollView style={styles.scrollView}>
-      <View style={styles.main}>
-        <View style={styles.sub}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.main}>
+          <View style={styles.sub}>
             <Text style={styles.title}>Name</Text>
             <TextInput
-                style={styles.itemInput}
-                onChange={this.handleNameChange}
-                />
-            </View>
+              style={styles.itemInput}
+              onChange={this.handleNameChange}
+            />
+          </View>
 
-        <View style={styles.sub}>
+          <View style={styles.sub}>
             <Text style={styles.title}>Phone Number</Text>
             <TextInput
-                  style={styles.itemInput}
-                onChange={this.handlePhoneNoChange}
-                />
-            </View>
+              style={styles.itemInput}
+              onChange={this.handlePhoneNoChange}
+            />
+          </View>
 
-        <View style={styles.sub}>
+          <View style={styles.sub}>
             <Text style={styles.title}>Adress</Text>
             <TextInput
-                  style={styles.itemInput}
-                onChange={this.handleAddressChange}
-                />
-             </View>
+              style={styles.itemInput}
+              onChange={this.handleAddressChange}
+            />
+          </View>
 
-        <TouchableHighlight
-                style = {styles.button}
-                underlayColor= "white"
-                onPress = {this.handleSubmit}
-              >
-              <Text
-                  style={styles.buttonText}>
-                  Save Customer
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor="white"
+            onPress={this.handleSubmit}
+          >
+            <Text
+              style={styles.buttonText}>
+              Save Customer
               </Text>
-            </TouchableHighlight>
-      </View>
+          </TouchableHighlight>
+        </View>
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1,
-        backgroundColor: '#2a8ab7'
-      },
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#2a8ab7'
+  },
   main: {
     flex: 1,
     padding: 30,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor:'white',
+    backgroundColor: 'white',
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 8,

@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Customers from './customers.component'
-import {updateAllCustomerList} from './customers.actions'
+import { updateAllCustomerList } from './customers.actions'
 
 const mapStateToProps = (state) => {
     return {
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
     }
 }
 const mapDispatchToProps = (dispatch) => {
-    return{
+    return {
         updateAllCustomerList: (value) => dispatch(updateAllCustomerList(value)),
     }
 }

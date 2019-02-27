@@ -1,6 +1,6 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import Chits from './chits.component'
-import {updateAllChitList} from './chits.actions'
+import { updateAllChitList } from './chits.actions'
 
 const mapStateToProps = (state) => {
     return {
@@ -8,7 +8,7 @@ const mapStateToProps = (state) => {
     }
 }
 const mapDispatchToProps = (dispatch) => {
-    return{
+    return {
         updateAllChitList: (value) => dispatch(updateAllChitList(value)),
     }
 }

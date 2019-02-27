@@ -1,4 +1,4 @@
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import AddCustomer from './addCustomer.component'
 // import {updateAllChitList} from './addCustomer.actions'
 

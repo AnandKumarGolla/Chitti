@@ -5,15 +5,15 @@ const initialState = {
 };
 
 const ChitReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case actionTypes.UPDATE_ALL_CHIT_LIST:
-        return {
-          ...state,
-          allChitList: action.payload
-        };
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case actionTypes.UPDATE_ALL_CHIT_LIST:
+      return {
+        ...state,
+        allChitList: action.payload
+      };
+    default:
+      return state;
+  }
+};
 
 export default ChitReducer;

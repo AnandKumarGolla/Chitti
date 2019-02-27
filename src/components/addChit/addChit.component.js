@@ -16,84 +16,84 @@ import { addChit } from '../../services/chitService';
 
 export default class AddChit extends Component {
   constructor(props) {
-      super(props);
-      this.state = {
-        name: '',
-        chosenDate: new Date(),
-        duration: 20
-      }
+    super(props);
+    this.state = {
+      name: '',
+      chosenDate: new Date(),
+      duration: 20
+    }
 
-      this.setName = this.setName.bind(this);
-      this.setDate = this.setDate.bind(this);
-      this.setDuration = this.setDuration.bind(this);
-    }
-    setName(e) {
-      this.setState({
-        name: e.nativeEvent.text
-      });
-    }
-    setDate(newDate) {
-        this.setState({chosenDate: newDate});
-      }
-    setDuration(e){
-        this.setState({
-            duration: e.nativeEvent.text
-        });
-      }
-    handleSubmit = () => {
-        console.log(this.state.chosenDate)
-        addChit(this.state.name, this.state.chosenDate, this.state.duration);
-      AlertIOS.alert(
-        'Chit saved successfully'
-       );
-    }
+    this.setName = this.setName.bind(this);
+    this.setDate = this.setDate.bind(this);
+    this.setDuration = this.setDuration.bind(this);
+  }
+  setName(e) {
+    this.setState({
+      name: e.nativeEvent.text
+    });
+  }
+  setDate(newDate) {
+    this.setState({ chosenDate: newDate });
+  }
+  setDuration(e) {
+    this.setState({
+      duration: e.nativeEvent.text
+    });
+  }
+  handleSubmit = () => {
+    console.log(this.state.chosenDate)
+    addChit(this.state.name, this.state.chosenDate, this.state.duration);
+    AlertIOS.alert(
+      'Chit saved successfully'
+    );
+  }
   render() {
     return (
-        <ScrollView style={styles.scrollView}>
-      <View style={styles.main}>
-        <View style={styles.sub}>
+      <ScrollView style={styles.scrollView}>
+        <View style={styles.main}>
+          <View style={styles.sub}>
             <Text style={styles.title}>Name</Text>
             <TextInput
-                style={styles.itemInput}
-                onChange={this.setName}
-                />
-            </View>
+              style={styles.itemInput}
+              onChange={this.setName}
+            />
+          </View>
 
-        <Text style={styles.title}>Date</Text>
-            <DatePickerIOS
-          date={this.state.chosenDate}
-          onDateChange={this.setDate}
-        />
+          <Text style={styles.title}>Date</Text>
+          <DatePickerIOS
+            date={this.state.chosenDate}
+            onDateChange={this.setDate}
+          />
 
-        <View style={styles.sub}>
+          <View style={styles.sub}>
             <Text style={styles.title}>Duration</Text>
             <TextInput
-                  style={styles.itemInput}
-                onChange={this.setDuration}
-                />
-             </View>
+              style={styles.itemInput}
+              onChange={this.setDuration}
+            />
+          </View>
 
-        <TouchableHighlight
-                style = {styles.button}
-                underlayColor= "white"
-                onPress = {() => this.handleSubmit()}
-              >
-              <Text
-                  style={styles.buttonText}>
-                  Save Customer
+          <TouchableHighlight
+            style={styles.button}
+            underlayColor="white"
+            onPress={() => this.handleSubmit()}
+          >
+            <Text
+              style={styles.buttonText}>
+              Save Customer
               </Text>
-            </TouchableHighlight>
-      </View>
+          </TouchableHighlight>
+        </View>
       </ScrollView>
     )
   }
 }
 
 const styles = StyleSheet.create({
-    scrollView: {
-        flex: 1,
-        backgroundColor: '#2a8ab7'
-      },
+  scrollView: {
+    flex: 1,
+    backgroundColor: '#2a8ab7'
+  },
   main: {
     flex: 1,
     padding: 30,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   button: {
     height: 45,
     flexDirection: 'row',
-    backgroundColor:'white',
+    backgroundColor: 'white',
     borderColor: 'white',
     borderWidth: 1,
     borderRadius: 8,

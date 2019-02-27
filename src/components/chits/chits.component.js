@@ -175,15 +175,15 @@ export default class Chits extends Component {
       );
     }
     return (
-      <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-        <FlatList
-          data={this.state.chitList}
-          renderItem={({ item }) => (this.renderRow(item))}
-          keyExtractor={item => item.key}
-          ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-        />
-      </List>
+      // <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+      <FlatList
+        data={this.state.chitList}
+        renderItem={({ item }) => (this.renderRow(item))}
+        keyExtractor={item => item.key}
+        ItemSeparatorComponent={this.renderSeparator}
+        ListHeaderComponent={this.renderHeader}
+      />
+      // </List>
     )
   }
 }

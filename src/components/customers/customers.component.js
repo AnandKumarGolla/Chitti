@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { View, Text, StyleSheet, FlatList, ActivityIndicator, Button } from 'react-native';
 import { List, ListItem, SearchBar } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
-import {removeCustomerFromChit} from '../../services/chitService'
+import { removeCustomerFromChit } from '../../services/chitService'
 import { updateAllCustomerList } from './customers.actions'
 
 
@@ -98,7 +98,7 @@ export default class ViewCustomer extends Component {
         error: error,
       });
       this.arrayholder = filteredCustomers;
-      })
+    })
   }
 
   fetchAllCustomers = () => {
@@ -221,13 +221,13 @@ export default class ViewCustomer extends Component {
     return (
       <Swipeout right={swipeoutBtns}
         autoClose='true'
-        backgroundColor= 'transparent'>
+        backgroundColor='transparent'>
         <ListItem
-                key={rowData.key}
-                title={rowData.name}
-                subtitle={rowData.address}
-                containerStyle={{ borderBottomWidth: 0, borderTopWidth: 0 }}
-              />
+          key={rowData.key}
+          title={rowData.name}
+          subtitle={rowData.address}
+          containerStyle={{ borderBottomWidth: 0, borderTopWidth: 0 }}
+        />
       </Swipeout>
     )
   }
@@ -242,18 +242,18 @@ export default class ViewCustomer extends Component {
       );
     }
     return (
-      <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-        <FlatList
-          enableEmptySections = {true}
-          // legacyImplementation = {true}
-          data={this.state.customerList}
-          extraData={this.state.customerList}
-          renderItem={({ item }) => (this.renderRow(item))} 
-          keyExtractor={item => item.key}
-          ItemSeparatorComponent={this.renderSeparator}
-          ListHeaderComponent={this.renderHeader}
-        />
-      </List>
+      // <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+      <FlatList
+        enableEmptySections={true}
+        // legacyImplementation = {true}
+        data={this.state.customerList}
+        extraData={this.state.customerList}
+        renderItem={({ item }) => (this.renderRow(item))}
+        keyExtractor={item => item.key}
+        ItemSeparatorComponent={this.renderSeparator}
+        ListHeaderComponent={this.renderHeader}
+      />
+      // </List>
     )
   }
 }

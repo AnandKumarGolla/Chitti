@@ -6,7 +6,7 @@ import { List, ListItem, SearchBar } from 'react-native-elements'
 import Swipeout from 'react-native-swipeout';
 
 import { addCustomerToChit } from '../../services/chitService';
-import { addChitToCustomer} from '../../services/customerService'
+import { addChitToCustomer } from '../../services/customerService'
 
 
 import { db } from '../../config/db';
@@ -145,17 +145,17 @@ export default class AddCustomerToChit extends Component {
     };
 
     _saveClicked = () => {
-        var data = this.state.items.filter(function(item){
+        var data = this.state.items.filter(function (item) {
             return item.isSelected == true;
-         }).map(function({key}){
-             return {key};
-         });
+        }).map(function ({ key }) {
+            return { key };
+        });
 
-         data.map((item, key) => {
-             //ToDo: Handle roll back if failed
+        data.map((item, key) => {
+            //ToDo: Handle roll back if failed
             addCustomerToChit(this.props.navigation.state.params.item.key, item.key)
             addChitToCustomer(this.props.navigation.state.params.item.key, item.key)
-         })
+        })
     };
 
     onPressListItem = (item) => {
@@ -169,17 +169,68 @@ export default class AddCustomerToChit extends Component {
         });
     }
 
-    render() {
-
+    renderRow(item) {
         var swipeoutBtns = [
             {
-                text: 'Delete'
-            },
-            {
-                text: 'Call'
+                text: 'Delete',
+                backgroundColor: 'red',
+                onPress: () => {
+                    this.removeChit(item)
+                }
             }
         ]
 
+        return (
+            <Swipeout right={swipeoutBtns}
+                autoClose='true'
+                backgroundColor='transparent'>
+                <ListItem
+                    key={item.key}
+                    title={item.name}
+                    subtitle={item.duration}
+                    containerStyle={{ borderBottomWidth: 0, borderTopWidth: 0 }}
+                    onPress={() => { this.onPressListItem(item) }}
+                />
+            </Swipeout>
+        )
+    }
+
+    callCustomer = (item) => {
+
+    }
+
+    renderRow(item) {
+        var swipeoutBtns = [
+            {
+                text: 'Call',
+                backgroundColor: 'blue',
+                onPress: () => {
+                    this.callCustomer(item)
+                }
+            }
+        ]
+
+        return (
+            <Swipeout right={swipeoutBtns}
+                autoClose='true'
+                backgroundColor='transparent'>
+                <ListItem
+                    key={item.key}
+                    title={item.name}
+                    subtitle={item.address}
+                    containerStyle={{ borderBottomWidth: 0, borderTopWidth: 0 }}
+                    rightIcon={
+                        item.isSelected ?
+                            <Image source={require('../../resources/check.png')} style={styles.checkImage} />
+                            : <Image />
+                    }
+                    onPress={() => { this.onPressListItem(item) }}
+                />
+            </Swipeout>
+        )
+    }
+
+    render() {
         if (this.state.loading) {
             return (
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -189,33 +240,16 @@ export default class AddCustomerToChit extends Component {
         }
 
         return (
-            <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
-                <FlatList
-                    legacyImplementation = {true}
-                    data={this.state.items}
-                    renderItem={({ item }) => (
-                        <Swipeout right={swipeoutBtns}>
-                            <ListItem
-                                key={item.key}
-                                title={item.name}
-                                subtitle={item.address}
-                                containerStyle={{ borderBottomWidth: 0, borderTopWidth: 0 }}
-                                buttonStyle={backgroundColor = 'orange'}
-                                rightIcon={
-                                    item.isSelected ?
-                                        <Image source={require('../../resources/check.png')} style={styles.checkImage} />
-                                        : <Image />
-                                }
-                                onPress={() => { this.onPressListItem(item) }}
-                            />
-                        </Swipeout>
-
-                    )}
-                    keyExtractor={item => item.key}
-                    ItemSeparatorComponent={this.renderSeparator}
-                    ListHeaderComponent={this.renderHeader}
-                />
-            </List>
+            // <List containerStyle={{ borderTopWidth: 0, borderBottomWidth: 0 }}>
+            <FlatList
+                legacyImplementation={true}
+                data={this.state.items}
+                renderItem={({ item }) => (this.renderRow(item))}
+                keyExtractor={item => item.key}
+                ItemSeparatorComponent={this.renderSeparator}
+                ListHeaderComponent={this.renderHeader}
+            />
+            // </List>
         )
     }
 }
