@@ -9,9 +9,10 @@ import {
   TouchableHighlight,
   AlertIOS,
   ScrollView,
-  DatePickerIOS
+  TouchableOpacity
 } from 'react-native';
 import { addChit } from '../../services/chitService';
+import DateTimePicker from 'react-native-modal-datetime-picker';
 
 
 export default class AddChit extends Component {
@@ -20,11 +21,11 @@ export default class AddChit extends Component {
     this.state = {
       name: '',
       chosenDate: new Date(),
-      duration: 20
+      duration: 20,
+      isDateTimePickerVisible: false,
     }
 
     this.setName = this.setName.bind(this);
-    this.setDate = this.setDate.bind(this);
     this.setDuration = this.setDuration.bind(this);
   }
   setName(e) {
@@ -32,9 +33,17 @@ export default class AddChit extends Component {
       name: e.nativeEvent.text
     });
   }
-  setDate(newDate) {
-    this.setState({ chosenDate: newDate });
-  }
+
+  _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+
+  _hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+
+  _handleDatePicked = (date) => {
+    console.log('A date has been picked: ', date);
+    this.setState({ chosenDate: date });
+    this._hideDateTimePicker();
+  };
+
   setDuration(e) {
     this.setState({
       duration: e.nativeEvent.text
@@ -59,11 +68,18 @@ export default class AddChit extends Component {
             />
           </View>
 
-          <Text style={styles.title}>Date</Text>
-          <DatePickerIOS
-            date={this.state.chosenDate}
-            onDateChange={this.setDate}
-          />
+          <View style={styles.sub}>
+            <Text style={styles.title}>Start Date</Text>
+            <TouchableOpacity onPress={this._showDateTimePicker} style={styles.itemInput}>
+              <Text style={styles.title}>{this.state.chosenDate.toDateString()}</Text>
+            </TouchableOpacity>
+            <DateTimePicker
+              isVisible={this.state.isDateTimePickerVisible}
+              onConfirm={this._handleDatePicked}
+              onCancel={this._hideDateTimePicker}
+            />
+          </View>
+
 
           <View style={styles.sub}>
             <Text style={styles.title}>Duration</Text>
