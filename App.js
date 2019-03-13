@@ -19,6 +19,15 @@ import CustomerScreen from './src/components/customers'
 import AddChitScreen from './src/components/addChit'
 import AddCustomerToChit from './src/components/addCustomerToChit'
 
+// symbol polyfills
+global.Symbol = require('core-js/es6/symbol');
+require('core-js/fn/symbol/iterator');
+
+// collection fn polyfills
+require('core-js/fn/map');
+require('core-js/fn/set');
+require('core-js/fn/array/find');
+
 // const RootStack = createStackNavigator(
 //   {
 //     Lock: LockScreen,
@@ -84,7 +93,7 @@ export default class App extends Component {
 
   _handleAppStateChange = (nextAppState) => {
     if (nextAppState === 'active') {
-      this.setModalVisible(true);
+      //this.setModalVisible(true);
     }
   }
 
