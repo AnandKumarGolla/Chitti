@@ -4,7 +4,7 @@ import Payments from './payments.component'
 
 const mapStateToProps = (state) => {
     return {
-        // allChitList: state.ChitReducer.allChitList
+        allCustomerList: state.CustomerReducer.allCustomerList
     }
 }
 

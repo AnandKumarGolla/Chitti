@@ -55,19 +55,11 @@ export default class Payments extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            selectedCustomer: null,
+            selectedChit: null,
             chosenDate: new Date(),
-            duration: 20,
             isDateTimePickerVisible: false,
         }
-
-        this.setName = this.setName.bind(this);
-        this.setDuration = this.setDuration.bind(this);
-    }
-    setName(e) {
-        this.setState({
-            name: e.nativeEvent.text
-        });
     }
 
     _showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
@@ -110,16 +102,16 @@ export default class Payments extends Component {
                         />
                     </View>
 
+                    <View style={styles.sub}>
+                        <Text style={styles.title}>Customer</Text>
                     <SearchableDropdown
-                        onTextChange={text => alert(text)}
-                        onItemSelect={item => alert(JSON.stringify(item))}
+                        // onTextChange={text => alert(text)}
+                        // onItemSelect={item => alert(JSON.stringify(item)}
+                        onItemSelect={item => this.setState({
+                            selectedCustomer: item,
+                        })}
                         containerStyle={{ padding: 5 }}
-                        textInputStyle={{
-                            padding: 12,
-                            borderWidth: 1,
-                            borderColor: '#ccc',
-                            borderRadius: 5,
-                        }}
+                        textInputStyle={styles.itemInput}
                         itemStyle={{
                             padding: 10,
                             marginTop: 2,
@@ -131,26 +123,39 @@ export default class Payments extends Component {
                         itemTextStyle={{ color: '#222' }}
                         itemsContainerStyle={{ maxHeight: 140 }}
                         items={items}
-                        defaultIndex={2}
-                        placeholder="placeholder"
+                        // defaultIndex={2}
+                        placeholder="Select customer"
                         resetValue={false}
                         underlineColorAndroid="transparent"
                     />
-
-                    <View style={styles.sub}>
-                        <Text style={styles.title}>Customer</Text>
-                        <TextInput
-                            style={styles.itemInput}
-                            onChange={this.setName}
-                        />
                     </View>
 
                     <View style={styles.sub}>
                         <Text style={styles.title}>Chit</Text>
-                        <TextInput
-                            style={styles.itemInput}
-                            onChange={this.setDuration}
-                        />
+                    <SearchableDropdown
+                        // onTextChange={text => alert(text)}
+                        // onItemSelect={item => alert(JSON.stringify(item)}
+                        onItemSelect={item => this.setState({
+                            selectedChit: item,
+                        })}
+                        containerStyle={{ padding: 5 }}
+                        textInputStyle={styles.itemInput}
+                        itemStyle={{
+                            padding: 10,
+                            marginTop: 2,
+                            backgroundColor: '#ddd',
+                            borderColor: '#bbb',
+                            borderWidth: 1,
+                            borderRadius: 5,
+                        }}
+                        itemTextStyle={{ color: '#222' }}
+                        itemsContainerStyle={{ maxHeight: 140 }}
+                        items={items}
+                        // defaultIndex={2}
+                        placeholder="Select customer"
+                        resetValue={false}
+                        underlineColorAndroid="transparent"
+                    />
                     </View>
 
                     <View style={styles.sub}>

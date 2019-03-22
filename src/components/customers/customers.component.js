@@ -40,13 +40,6 @@ export default class ViewCustomer extends Component {
 
     this.props.navigation.setParams({ addButtonClicked: this._addButtonClicked });
 
-    if (this.props.navigation.state.params) {
-      this.screenFor = "CustomersOfChit"
-      this.fetchAllCustomersOfChit(this.props.navigation.state.params.item)
-    } else {
-      this.screenFor = "AllCustomers"
-      this.fetchAllCustomers()
-    }
   }
 
   componentWillUnmount() {
