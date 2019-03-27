@@ -19,6 +19,7 @@ import CustomerScreen from './src/components/customers'
 import AddChitScreen from './src/components/addChit'
 import AddCustomerToChit from './src/components/addCustomerToChit'
 import PaymentsScreen from './src/components/payments'
+import ReportsScreen from './src/components/reports'
 
 // symbol polyfills
 global.Symbol = require('core-js/es6/symbol');
@@ -77,12 +78,25 @@ const PaymentsStack = createStackNavigator(
   }
 );
 
+const ReportsStack = createStackNavigator(
+  {
+    Reports: ReportsScreen,
+  },
+  {
+    initialRouteName: 'Reports',
+  }
+);
+
+
+
+
 // const customerContainer = createAppContainer(CustomerStack);
 
 const TabNavigator = createBottomTabNavigator({
   Chits: { screen: ChitStack },
   Customers: { screen: CustomerStack },
-  Payments: {screen: PaymentsStack}
+  Payments: {screen: PaymentsStack},
+  Reports:  {screen: ReportsStack}
 });
 
 const AppContainer = createAppContainer(TabNavigator);
